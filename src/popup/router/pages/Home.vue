@@ -12,7 +12,8 @@
     <p>test consomation API REST GET </p>
     {{ ip }}
     <p>Test de consomation de API REST POST</p>
-    <button id="button" v-on:click="test()">CLIC</button>
+     <button id="button" v-on:click="test()">CLIC</button>
+    <button id="button1" v-on:click="test_red()">Redirect</button>
     <span>test : </span> {{ response[0]  }}
     {{ response[1] }}
   </div>
@@ -41,9 +42,39 @@ export default {
       this.ip = result.data.origin
     }, error => {
       console.log(error)
-    })
+    }),
+    chrome.tabs.query({ 
+  'active': true,
+  'currentWindow': true,
+  'windowId': chrome.windows.WINDOW_ID_CURRENT
+}, function (tabs) {
+   var tab = tabs[0]
+   let tabl = []
+  if(tab.url === 'https://www.azureva-vacances.com/'){
+ tabl.push(tab.url)
+  // RegExperssion recupérer seulement url de base :
+  console.log(tab.url) // api des occurance addidas.fr ==> addidas.fr/macif
+  chrome.tabs.update({url: 'https://macif.azureva-vacances.com/'})
+  window.close() // Note: window.close(), not this.close()
+}}
+)
     },
   methods: {
+    test_red() {chrome.tabs.query({ 
+  'active': true,
+  'currentWindow': true,
+  'windowId': chrome.windows.WINDOW_ID_CURRENT
+}, function (tabs) {
+   var tab = tabs[0]
+  if(tab.url === 'https://www.azureva-vacances.com/'){
+ 
+  // RegExperssion recupérer seulement url de base :
+  console.log(tab.url) // api des occurance addidas.fr ==> addidas.fr/macif
+  chrome.tabs.update({url: 'https://macif.azureva-vacances.com/'})
+  window.close() // Note: window.close(), not this.close()
+}}
+)
+    },
       test() {
         axios({ method: 'POST','url': 'https://httpbin.org/post',
       'data': { test: [1, 2] }, 'headers': { "content-type": "application/json" }

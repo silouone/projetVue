@@ -1,7 +1,7 @@
-import Vue from 'vue';
-import App from './App.vue';
-import store from './../store';
-import router from './router';
+import Vue from 'vue'
+import App from './App.vue'
+import store from './../store'
+import router from './router'
 
 import FooterMenu from './router/pages/FooterMenu'
 import HeaderInfo from './router/pages/HeaderInfo'
@@ -19,16 +19,16 @@ new Vue({
   store,
   router,
   render: h => h(App)
-});
+})
 
-chrome.tabs.query({
+chrome.tabs.query({ //
   'active': true,
   'currentWindow': true,
   'windowId': chrome.windows.WINDOW_ID_CURRENT
-}, function(tabs){
+}, function (tabs) {
   var tab = tabs[0]
-  var url = tab.url
-  alert(tabs[0].url)
-// document.getElementById("pdurl").value = tabs[0].url
+  // RegExperssion recupérer seulement url de base :
+  console.log(tab.url) // api des occurance addidas.fr ==> addidas.fr/macif
+  // chrome.tabs.update({url: 'https://www.google.fr'})
+  // window.close() // Note: window.close(), not this.close()
 })
-console.log(chrome.tabs.query.tab)
